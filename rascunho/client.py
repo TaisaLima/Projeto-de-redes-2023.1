@@ -12,7 +12,7 @@ def main():
 
     cliente.connect(ADDR)
 
-    arquivo = open("dados/Hello.txt", "r")
+    arquivo = open("Hello.txt", "r")
     dados = arquivo.read()
 
     cliente.send("Hello.txt".encode(FORMAT))
