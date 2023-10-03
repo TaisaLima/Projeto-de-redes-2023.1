@@ -10,7 +10,7 @@ Integrantes:
     Matheus Ryan | Caio César | Taisa Lima | João Gomes 
  </center>
 
- ## O que é a um socket?
+ ## O que é um socket?
 Sockets são como pontos de comunicação que os computadores usam para enviar e receber mensagens. Eles podem ser usados para diferentes tipos de comunicação, como enviar e-mails, transmitir vídeos, ou jogar jogos online com outras pessoas em todo o mundo. Então, em resumo, os sockets são como os telefones dos computadores na Internet, permitindo que eles conversem e compartilhem coisas uns com os outros. É uma parte fundamental da forma como a Internet funciona e torna possível tudo o que fazemos online.
 
 ## Execução do programa
