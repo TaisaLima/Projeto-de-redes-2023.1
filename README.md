@@ -13,6 +13,10 @@ Integrantes:
  ## O que é um socket?
 Sockets são como pontos de comunicação que os computadores usam para enviar e receber mensagens. Eles podem ser usados para diferentes tipos de comunicação, como enviar e-mails, transmitir vídeos, ou jogar jogos online com outras pessoas em todo o mundo. Então, em resumo, os sockets são como os telefones dos computadores na Internet, permitindo que eles conversem e compartilhem coisas uns com os outros. É uma parte fundamental da forma como a Internet funciona e torna possível tudo o que fazemos online.
 
+## Objetivo do programa
+
+Este projeto é uma ferramente de upload e download de arquivos utilizando o protocolo TCP/IP e uma arquitetura de cliente-servidor.
+
 ## Execução do programa
 
 >
