@@ -71,7 +71,7 @@ def download(conn):
     
     # COMANDO
     print()
-    choosed_id = input("Digite o ID do arquivo escolhido (disponiveis na listagem): ")
+    choosed_id = input("Digite o número do arquivo escolhido: ")
     
     # ENVIANDO option
     try:
