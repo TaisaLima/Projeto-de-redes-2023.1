@@ -2,20 +2,20 @@ import socket
 import os
 
 
-def list_files(conn):
+def list_files(conn): #DISPLAY
 
     print()
     try:
-        list_files = str(conn.recv(4096).rstrip().decode())
+        list_files = str(conn.recv(4096).rstrip().decode()) #LISTA OS ARQUIVOS PARA SEREM RECEBIDOS
         print(list_files)
         input("\nPressione enter...")
 
-    except Exception as e:
-        print("\nErro em obter opções:", e)
+    except Exception as error:
+        print("\nErro em obter opções:", error)
         return
 
 
-def upload(conn):
+def upload(conn): #UPLOAD
     
     # LISTANDO ARQUIVOS DISPONIVEIS PARA ENVIO 
     files = os.listdir(os.path.join(os.getcwd(), "../dados cliente"))
@@ -34,32 +34,32 @@ def upload(conn):
     
     # CONFIRMANDO ARQUIVO COM O SERVIDOR
     try:
-        file_name = files[choosed_id-1]
-        file_size = os.path.getsize("../dados cliente/" + files[choosed_id-1])
+        file_name = files[choosed_id-1] #SELECIONA O ARQUIVO NO ARRAY DE ARQUIVOS
+        file_size = os.path.getsize("../dados cliente/" + files[choosed_id-1]) #SELECIONA O CAMINHO NO DIRETÓRIO
 
-        confirm = str(file_size) + ":" + str(file_name)
-        conn.sendall(confirm.encode())
+        confirm = str(file_size) + ":" + str(file_name) #CONFIRMA O ARQUIVO
+        conn.sendall(confirm.encode()) #ENVIA O ARQUIVO
 
         print("\nEnviando o arquivo:", file_name)
 
-    except Exception as e:
-        print("Erro na escolha do arquivo:", e)
+    except Exception as error:
+        print("Erro na escolha do arquivo:", error)
         return
 
 
     # ENVIANDO ARQUIVO
     try:
-        choosed_file = open("../dados cliente/" + file_name, "rb")
+        choosed_file = open("../dados cliente/" + file_name, "rb") #SELECIONA O ARQUIVO PARA SER ENVIADO
         
         while True:
-            file_in_bytes = choosed_file.read(1024)
+            file_in_bytes = choosed_file.read(1024) #Lê O ARQUIVO
             if len(file_in_bytes) <= 0:
                 # FINALIZOU O ARQUIVO
                 break
-            conn.sendall(file_in_bytes)
+            conn.sendall(file_in_bytes) #ENVIA OS BYTES DO ARQUIVO
 
-    except Exception as e:
-        print("\nErro de dados:", e)
+    except Exception as error:
+        print("\nErro de dados:", error)
         return 
 
     print("\nArquivo enviado!")   
@@ -71,29 +71,29 @@ def download(conn):
     
     # COMANDO
     print()
-    choosed_id = input("Digite o número do arquivo escolhido: ")
+    choosed_id = input("Digite o número do arquivo escolhido (disponiveis na listagem): ")
     
     # ENVIANDO option
     try:
         conn.send(choosed_id.encode())
 
-    except Exception as e:
-        print("\nErro:", e)
+    except Exception as error:
+        print("\nErro:", error)
         return
 
     # confirm ARQUIVO
     try:
-        confirm = conn.recv(4096).rstrip().decode()
-        file_name = confirm.split(":")[-1]
-        file_size = int(confirm.split(":")[0])
+        confirm = conn.recv(4096).rstrip().decode() #RECEBE A CONFIRMAÇÃO DE RECEBIMENTO
+        file_name = confirm.split(":")[-1] #LÊ O NOME DO ARQUIVO
+        file_size = int(confirm.split(":")[0]) #PEGA O TAMANHO DO ARQUIVO
         
         print(file_name)
 
-    except Exception as e:
-        print("\nErro na confirmação:", e)
+    except Exception as error:
+        print("\nErro na confirmação:", error)
         return
 
-    # CASO JA EXISTA UM ARQUIVO DE MESMO NOME NA PASTA
+    # OCORRÊNCIA DE ARQUIVOS DE MESMO NOME
     aux_name = file_name
     i = 1
     while os.path.exists("./dados cliente/" + aux_name):
@@ -105,22 +105,22 @@ def download(conn):
 
     # BAIXANDO ARQUIVO
     try:
-        file = open("../dados cliente/" + file_name, 'wb')
-    except Exception as e:
-        print("Erro na obtenção do arquivo:", e)
+        file = open("../dados cliente/" + file_name, 'wb') #ENTRA NA PASTA E USA O WB PARA ESCREVER
+    except Exception as error:
+        print("Erro na obtenção do arquivo:", error)
         return
 
     while True:
-        if aux_size <= 0:
+        if aux_size <= 0: #ENQUANTO A QUANTIDADE DE BYTES RECEBIDOS NÃO CHEGAR EM ZERO
             break
 
         try:
-            byte = conn.recv(1024)
-            file.write(byte)
-            aux_size -= len(byte)
+            byte = conn.recv(1024) #RECEBE O BYTE DO SERVIDOR
+            file.write(byte) #ESCREVE O ARQUIVO NO DIRETÓRIO ESCOLHIDO
+            aux_size -= len(byte) #DIMINUI A QUANTIDADE DE BYTES
 
-        except Exception as e:
-            print("Erro no download:", e)
+        except Exception as error:
+            print("Erro no download:", error)
             return
 
     print("Arquivo baixado!")
@@ -143,8 +143,8 @@ def client():
         if option == '1':
             try:
                 server_socket.send("to_list".encode())
-            except Exception as e:
-                print("Erro:", e)
+            except Exception as error:
+                print("Erro:", error)
                 server_socket.close()
                 break
 
@@ -156,8 +156,8 @@ def client():
         elif option == '2':
             try:
                 server_socket.send("upload".encode())
-            except Exception as e:
-                print("Erro:", e)
+            except Exception as error:
+                print("Erro:", error)
                 server_socket.close()
                 break
 
@@ -169,8 +169,8 @@ def client():
         elif option == '3':
             try:
                 server_socket.send("download".encode())
-            except Exception as e:
-                print("Erro:", e)
+            except Exception as error:
+                print("Erro:", error)
                 server_socket.close()
                 break
 
@@ -182,8 +182,8 @@ def client():
         elif option == '4':
             try:
                 server_socket.send("exit".encode())
-            except Exception as e:
-                print("Erro:", e)
+            except Exception as error:
+                print("Erro:", error)
 
             server_socket.close()
             break
