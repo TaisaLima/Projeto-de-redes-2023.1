@@ -67,8 +67,7 @@ def send_files(conn): #FUNÇÃO PARA ENVIAR OS ARQUIVOS
         resp_option = int(conn.recv(1024).rstrip().decode()) #RECEBE A OPÇÃO ESCOLHIDA PELO CLIENTE
         file_size = os.path.getsize(
             "../dados/" + files[resp_option-1])
-        confirm = str(file_size) + ":" + \       
-            str(files[resp_option-1])
+        confirm = str(file_size) + ":" + str(files[resp_option-1])
         conn.sendall(confirm.encode())#ENVIA A CONFIRMAÇÃO DO ARQUIVO
 
     except Exception as error:
